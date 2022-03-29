@@ -47,7 +47,7 @@ namespace Calc
             _input_str += btnNumText;
 
             // 画面上に数字を出す
-            txtResult.Text = _input_str;
+            txtResult.Text = ConvertToStringSeparatedByThreeDigits(decimal.Parse(_input_str));
         }
 
         /// <summary>
@@ -67,7 +67,7 @@ namespace Calc
                     _input_str += ".";
 
                     // 画面上に数字を出す
-                    txtResult.Text = _input_str;
+                    txtResult.Text = ConvertToStringSeparatedByThreeDigits(decimal.Parse(_input_str)); ;
                     break;
             }
         }
@@ -80,12 +80,13 @@ namespace Calc
         private void btnArithmetic_Click(object sender, EventArgs e)
         {
             // 四則計算
-            _result = (!string.IsNullOrEmpty(_input_str) && _arithmetic != Arithmetic.None) ? 
-                Calcurate(_result, decimal.Parse(_input_str)) : 
-                decimal.Parse(txtResult.Text);
+            if (!string.IsNullOrEmpty(_input_str) && _arithmetic != Arithmetic.None)
+                _result = Calcurate(_result, decimal.Parse(_input_str));
+            else
+                _result = decimal.Parse(DeleteString(txtResult.Text, ","));
 
             // 画面に計算結果を表示する
-            txtResult.Text = _result.ToString();
+            txtResult.Text = ConvertToStringSeparatedByThreeDigits(_result);
 
             _lastNum = string.IsNullOrEmpty(_input_str) ? _result.ToString() : _input_str; 
 
@@ -105,9 +106,13 @@ namespace Calc
         private void btnEq_Click(object sender, EventArgs e)
         {
             var num1 = _result; // 現在の結果
+            decimal num2;
 
             // 入力された数字が空欄でないなら[入力された数字]、空欄なら[直前に入力された数字]を取得する
-            decimal num2 = !string.IsNullOrEmpty(_input_str) ? decimal.Parse(_input_str) : decimal.Parse(_lastNum);
+            if (!string.IsNullOrEmpty(_input_str))
+                num2 = decimal.Parse(_input_str);
+            else
+                num2 = decimal.Parse(_lastNum);
 
             if (string.IsNullOrEmpty(_input_str))
             {
@@ -119,7 +124,9 @@ namespace Calc
                         break;
                     case Arithmetic.Sub:
                         // [-=]とクリックした場合、表示されている数字の２倍を代入する
-                        if (_IsFirstInput) num2 = decimal.Parse(txtResult.Text) * 2;
+                        var numString = DeleteString(txtResult.Text, ",");
+                        if (_IsFirstInput)
+                            num2 = decimal.Parse(numString) * 2;
                         break;
                     default:
                         _IsFirstInput = true;
@@ -134,7 +141,7 @@ namespace Calc
             _result = Calcurate(num1, num2);
 
             // 画面に計算結果を表示する
-            txtResult.Text = _result.ToString();
+            txtResult.Text = ConvertToStringSeparatedByThreeDigits(_result);
 
             // 今入力されている数字をリセットする
             _input_str = "";
@@ -218,5 +225,53 @@ namespace Calc
 
             return arithmetic;
         }
+
+        /// <summary>
+        /// ３桁区切りの文字列に変換する
+        /// </summary>
+        /// <param name="num">変換する数値</param>
+        /// <returns>３桁区切りの文字列</returns>
+        private string ConvertToStringSeparatedByThreeDigits(decimal num)
+        {
+            // 整数部を取得する
+            decimal integerPart = GetIntegerPartOfNumber(num);
+
+            // numが小数の場合、小数部を取得する
+            decimal fractionalPart = 0;
+            if (num.ToString().IndexOf(".") > 0)
+                fractionalPart = GetFractionalPartOfNumber(num);
+
+            // 整数部を３桁区切りにする
+            var strResultNum = string.Format("{0:#,0}", integerPart);
+
+            // 小数部がある場合は連結する
+            if (fractionalPart > 0)
+                strResultNum += fractionalPart.ToString().Substring(1);
+
+            return strResultNum;
+        }
+
+        /// <summary>
+        /// 数値の整数部を取得する
+        /// </summary>
+        /// <param name="num">数値</param>
+        /// <returns>整数部の数値</returns>
+        private decimal GetIntegerPartOfNumber(decimal num) => Math.Truncate(num);
+
+        /// <summary>
+        /// 数値の小数部を取得する
+        /// </summary>
+        /// <param name="num">数値</param>
+        /// <returns>小数部の数値</returns>
+        private decimal GetFractionalPartOfNumber(decimal num) => num % 1;
+
+        /// <summary>
+        /// 文字列を削除する
+        /// </summary>
+        /// <param name="target">対象文字列</param>
+        /// <param name="deleteString">削除する文字列</param>
+        /// <returns>削除済み文字列</returns>
+        private string DeleteString(string target, string deleteString) =>
+            target.Replace(deleteString, "");
     }
 }
