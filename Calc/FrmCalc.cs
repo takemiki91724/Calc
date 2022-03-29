@@ -17,7 +17,17 @@ namespace Calc
             None    // 何も選択していない
         }
 
+        /// <summary>
+        /// 記号
+        /// </summary>
+        enum Symbol
+        {
+            DecimalPoint,   // 小数点
+            None            // 何も選択していない
+        }
+
         Arithmetic _arithmetic;
+        Symbol _symbol;
 
         string _input_str;  // 入力された数字
         string _lastNum;    // 直前に入力された数字
@@ -60,16 +70,11 @@ namespace Calc
             // senderの詳しい情報を取り扱えるようにする
             var btn = (Button)sender;
 
-            switch (btn.Text)
-            {
-                case "・":
-                    // [入力された数字]に連結する
-                    _input_str += ".";
+            // 記号の種類を取得する
+            GetSymbol(btn.Text);
 
-                    // 画面上に数字を出す
-                    txtResult.Text = ConvertToStringSeparatedByThreeDigits(decimal.Parse(_input_str)); ;
-                    break;
-            }
+            // 記号に対応する処理を行う
+            HandleSymbols();
         }
 
         /// <summary>
@@ -95,7 +100,7 @@ namespace Calc
 
             // 演算子をarithmetic変数に入れる
             var btn = (Button)sender;
-            _arithmetic = GetArithmetic(btn.Text);
+            GetArithmetic(btn.Text);
 
             _IsFirstInput = true;
         }
@@ -165,6 +170,7 @@ namespace Calc
             _lastNum = "";                  // 直前に入力された数字
             _result = 0;                    // 計算結果
             _arithmetic = Arithmetic.None;  // 押された演算子
+            _symbol = Symbol.None;          // 押された記号
             _IsFirstInput = true;           // 初回入力フラグ
             txtResult.Text = "0";
         }
@@ -205,27 +211,63 @@ namespace Calc
         /// </summary>
         /// <param name="text">四則演算子ボタンのText値</param>
         /// <returns>四則演算子</returns>
-        private Arithmetic GetArithmetic(string text)
+        //private Arithmetic GetArithmetic(string text)
+        private void GetArithmetic(string text)
         {
-            var arithmetic = Arithmetic.None;
-
             switch (text)
             {
                 case "÷":
-                    arithmetic = Arithmetic.Div;
+                    _arithmetic = Arithmetic.Div;
                     break;
                 case "×":
-                    arithmetic = Arithmetic.Multi;
+                    _arithmetic = Arithmetic.Multi;
                     break;
                 case "-":
-                    arithmetic = Arithmetic.Sub;
+                    _arithmetic = Arithmetic.Sub;
                     break;
                 case "+":
-                    arithmetic = Arithmetic.Add;
+                    _arithmetic = Arithmetic.Add;
                     break;
             }
+        }
 
-            return arithmetic;
+        /// <summary>
+        /// 記号の種類を取得する
+        /// </summary>
+        /// <param name="text">記号ボタンのText値</param>
+        private void GetSymbol(string text)
+        {
+            switch (text)
+            {
+                case "・":
+                    _symbol = Symbol.DecimalPoint;
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// 記号に対応する処理を行う
+        /// </summary>
+        private void HandleSymbols()
+        {
+            switch (_symbol)
+            {
+                case Symbol.DecimalPoint:
+                    HandleDecimalPoint();
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// 小数点を処理する
+        /// </summary>
+        private void HandleDecimalPoint()
+        {
+            // [入力された数字]に連結する
+            _input_str += ".";
+
+            // 画面上に数字を出す
+            txtResult.Text = ConvertToStringSeparatedByThreeDigits(decimal.Parse(_input_str)); ;
         }
 
         /// <summary>
