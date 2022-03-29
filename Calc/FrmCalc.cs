@@ -22,6 +22,7 @@ namespace Calc
         string _input_str;  // 入力された数字
         string _lastNum;    // 直前に入力された数字
         decimal _result;    // 計算結果
+        bool _IsFirstInput; // 初回入力フラグ
 
         public FrmCalc()
         {
@@ -90,6 +91,39 @@ namespace Calc
             if (string.IsNullOrEmpty(_input_str) && _arithmetic == Arithmetic.Div)
                 num1 = 1;
 
+            if (string.IsNullOrEmpty(_input_str))
+            {
+                /*
+                // [/=]とクリックした場合、num1に[1]を代入する
+                if (_arithmetic == Arithmetic.Div)
+                    num1 = 1;
+                // [-=]とクリックした場合、num1に[1]を代入する
+                if (_arithmetic == Arithmetic.Sub)
+                {
+                    if (_IsFirstInput)
+                    {
+                        //num2 = 20;
+                        num2 = decimal.Parse(txtResult.Text) * 2;
+                        _IsFirstInput = false;
+                    }
+                }
+                */
+
+                switch (_arithmetic)
+                {
+                    case Arithmetic.Div:
+                        num1 = 1;
+                        break;
+                    case Arithmetic.Sub:
+                        if (_IsFirstInput)
+                        {
+                            num2 = decimal.Parse(txtResult.Text) * 2;
+                            _IsFirstInput = false;
+                        }
+                        break;
+                }
+            }
+
             // 四則計算
             _result = Calcurate(num1, num2);
 
@@ -115,7 +149,8 @@ namespace Calc
             _input_str = "";                // 入力された数字
             _lastNum = "";                  // 直前に入力された数字
             _result = 0;                    // 計算結果
-            _arithmetic = Arithmetic.None;   // 押された演算子
+            _arithmetic = Arithmetic.None;  // 押された演算子
+            _IsFirstInput = true;           // 初回入力フラグ
             txtResult.Text = "0";
         }
 
