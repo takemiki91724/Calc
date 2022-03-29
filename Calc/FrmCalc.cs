@@ -14,12 +14,13 @@ namespace Calc
             Multi,  // 掛け算
             Sub,    // 引き算
             Add,    // 足し算
-            Max
+            None    // 何も選択していない
         }
 
         Arithmetic _arithmetic;
 
         string _input_str;  // 入力された数字
+        string _lastNum;    // 直前に入力された数字
         decimal _result;    // 計算結果
 
         public FrmCalc()
@@ -39,13 +40,13 @@ namespace Calc
             var btn = (Button)sender;
 
             // 押されたボタンの数字(または小数点の記号)
-            var text = btn.Text;
+            var btnNumText = btn.Text;
 
             // [入力された数字]に連結する
-            _input_str += text;
+            _input_str += btnNumText;
 
             // 画面上に数字を出す
-            this.txtResult.Text = _input_str;
+            txtResult.Text = _input_str;
         }
 
         /// <summary>
@@ -55,30 +56,20 @@ namespace Calc
         /// <param name="e"></param>
         private void btnArithmetic_Click(object sender, EventArgs e)
         {
-            var num1 = _result; // 現在の結果
-            decimal num2;       // 入力された文字
-
-            // 入力された文字が空欄なら、計算をスキップする
-            if (!string.IsNullOrEmpty(_input_str) && _arithmetic != Arithmetic.Max)
-            {
-                // 入力した文字を数字に変換
-                num2 = decimal.Parse(_input_str);
-
-                // 四則計算
-                _result = Calcurate(num1, num2);
-            }
-            else
-            {
-                _result = decimal.Parse(this.txtResult.Text);
-            }
+            // 四則計算
+            _result = (!string.IsNullOrEmpty(_input_str) && _arithmetic != Arithmetic.None) ? 
+                Calcurate(_result, decimal.Parse(_input_str)) : 
+                decimal.Parse(txtResult.Text);
 
             // 画面に計算結果を表示する
-            this.txtResult.Text = _result.ToString();
+            txtResult.Text = _result.ToString();
+
+            _lastNum = string.IsNullOrEmpty(_input_str) ? _result.ToString() : _input_str; 
 
             // 今入力されている数字をリセットする
             _input_str = "";
 
-            // 演算子をOperator変数に入れる
+            // 演算子をarithmetic変数に入れる
             var btn = (Button)sender;
             _arithmetic = GetArithmetic(btn.Text);
         }
@@ -91,30 +82,22 @@ namespace Calc
         private void btnEq_Click(object sender, EventArgs e)
         {
             var num1 = _result; // 現在の結果
-            decimal num2;       // 入力された文字
 
-            // 入力された文字が空欄なら、計算をスキップする
-            if (!string.IsNullOrEmpty(_input_str))
-            {
-                // 入力した文字を数字に変換
-                num2 = decimal.Parse(_input_str);
-            }
-            else
-            {
-                num2 = decimal.Parse(this.txtResult.Text);
-            }
+            // 入力された数字が空欄でないなら[入力された数字]、空欄なら[直前に入力された数字]を取得する
+            decimal num2 = !string.IsNullOrEmpty(_input_str) ? decimal.Parse(_input_str) : decimal.Parse(_lastNum);
+
+            // [/=]とクリックした場合、num1に[1]を代入する
+            if (string.IsNullOrEmpty(_input_str) && _arithmetic == Arithmetic.Div)
+                num1 = 1;
 
             // 四則計算
             _result = Calcurate(num1, num2);
 
             // 画面に計算結果を表示する
-            this.txtResult.Text = _result.ToString();
+            txtResult.Text = _result.ToString();
 
             // 今入力されている数字をリセットする
-            _input_str = null;
-
-            // 演算子をArithmetic.Maxにする
-            _arithmetic = Arithmetic.Max;
+            _input_str = "";
         }
 
         /// <summary>
@@ -122,10 +105,7 @@ namespace Calc
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btnClear_Click(object sender, EventArgs e)
-        {
-            Init();
-        }
+        private void btnClear_Click(object sender, EventArgs e) => Init();
 
         /// <summary>
         /// 初期化する
@@ -133,9 +113,10 @@ namespace Calc
         private void Init()
         {
             _input_str = "";                // 入力された数字
+            _lastNum = "";                  // 直前に入力された数字
             _result = 0;                    // 計算結果
-            _arithmetic = Arithmetic.Max;   // 押された演算子
-            this.txtResult.Text = "0";
+            _arithmetic = Arithmetic.None;   // 押された演算子
+            txtResult.Text = "0";
         }
 
         /// <summary>
@@ -176,7 +157,7 @@ namespace Calc
         /// <returns>四則演算子</returns>
         private Arithmetic GetArithmetic(string text)
         {
-            Arithmetic arithmetic = Arithmetic.Max;
+            var arithmetic = Arithmetic.None;
 
             switch (text)
             {
