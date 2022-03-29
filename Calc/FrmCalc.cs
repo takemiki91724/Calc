@@ -87,41 +87,25 @@ namespace Calc
             // 入力された数字が空欄でないなら[入力された数字]、空欄なら[直前に入力された数字]を取得する
             decimal num2 = !string.IsNullOrEmpty(_input_str) ? decimal.Parse(_input_str) : decimal.Parse(_lastNum);
 
-            // [/=]とクリックした場合、num1に[1]を代入する
-            if (string.IsNullOrEmpty(_input_str) && _arithmetic == Arithmetic.Div)
-                num1 = 1;
-
             if (string.IsNullOrEmpty(_input_str))
             {
-                /*
-                // [/=]とクリックした場合、num1に[1]を代入する
-                if (_arithmetic == Arithmetic.Div)
-                    num1 = 1;
-                // [-=]とクリックした場合、num1に[1]を代入する
-                if (_arithmetic == Arithmetic.Sub)
-                {
-                    if (_IsFirstInput)
-                    {
-                        //num2 = 20;
-                        num2 = decimal.Parse(txtResult.Text) * 2;
-                        _IsFirstInput = false;
-                    }
-                }
-                */
-
                 switch (_arithmetic)
                 {
                     case Arithmetic.Div:
-                        num1 = 1;
+                        // [/=]とクリックした場合、num1に[1]を代入する
+                        if (_IsFirstInput) num1 = 1;
                         break;
                     case Arithmetic.Sub:
-                        if (_IsFirstInput)
-                        {
-                            num2 = decimal.Parse(txtResult.Text) * 2;
-                            _IsFirstInput = false;
-                        }
+                        // [-=]とクリックした場合、表示されている数字の２倍を代入する
+                        if (_IsFirstInput) num2 = decimal.Parse(txtResult.Text) * 2;
+                        break;
+                    default:
+                        _IsFirstInput = true;
                         break;
                 }
+
+                if (_arithmetic == Arithmetic.Div || _arithmetic == Arithmetic.Sub)
+                    _IsFirstInput = false;
             }
 
             // 四則計算
