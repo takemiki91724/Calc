@@ -45,6 +45,15 @@
             this.btnClear = new System.Windows.Forms.Button();
             this.btnEq = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.btnDecimalPoint = new System.Windows.Forms.Button();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.panel7 = new System.Windows.Forms.Panel();
+            this.panel8 = new System.Windows.Forms.Panel();
             this.SuspendLayout();
             // 
             // txtResult
@@ -54,7 +63,7 @@
             this.txtResult.Location = new System.Drawing.Point(12, 12);
             this.txtResult.Name = "txtResult";
             this.txtResult.ReadOnly = true;
-            this.txtResult.Size = new System.Drawing.Size(338, 40);
+            this.txtResult.Size = new System.Drawing.Size(324, 40);
             this.txtResult.TabIndex = 0;
             this.txtResult.TabStop = false;
             this.txtResult.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -62,9 +71,9 @@
             // btn7
             // 
             this.btn7.Font = new System.Drawing.Font("ＭＳ ゴシック", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.btn7.Location = new System.Drawing.Point(12, 79);
+            this.btn7.Location = new System.Drawing.Point(78, 74);
             this.btn7.Name = "btn7";
-            this.btn7.Size = new System.Drawing.Size(80, 80);
+            this.btn7.Size = new System.Drawing.Size(60, 60);
             this.btn7.TabIndex = 1;
             this.btn7.Text = "7";
             this.btn7.UseVisualStyleBackColor = true;
@@ -73,9 +82,9 @@
             // btn8
             // 
             this.btn8.Font = new System.Drawing.Font("ＭＳ ゴシック", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.btn8.Location = new System.Drawing.Point(98, 79);
+            this.btn8.Location = new System.Drawing.Point(144, 74);
             this.btn8.Name = "btn8";
-            this.btn8.Size = new System.Drawing.Size(80, 80);
+            this.btn8.Size = new System.Drawing.Size(60, 60);
             this.btn8.TabIndex = 1;
             this.btn8.Text = "8";
             this.btn8.UseVisualStyleBackColor = true;
@@ -84,9 +93,9 @@
             // btn9
             // 
             this.btn9.Font = new System.Drawing.Font("ＭＳ ゴシック", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.btn9.Location = new System.Drawing.Point(184, 79);
+            this.btn9.Location = new System.Drawing.Point(210, 74);
             this.btn9.Name = "btn9";
-            this.btn9.Size = new System.Drawing.Size(80, 80);
+            this.btn9.Size = new System.Drawing.Size(60, 60);
             this.btn9.TabIndex = 1;
             this.btn9.Text = "9";
             this.btn9.UseVisualStyleBackColor = true;
@@ -95,9 +104,9 @@
             // btnDiv
             // 
             this.btnDiv.Font = new System.Drawing.Font("ＭＳ ゴシック", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.btnDiv.Location = new System.Drawing.Point(270, 79);
+            this.btnDiv.Location = new System.Drawing.Point(276, 74);
             this.btnDiv.Name = "btnDiv";
-            this.btnDiv.Size = new System.Drawing.Size(80, 80);
+            this.btnDiv.Size = new System.Drawing.Size(60, 60);
             this.btnDiv.TabIndex = 1;
             this.btnDiv.Text = "÷";
             this.btnDiv.UseVisualStyleBackColor = true;
@@ -106,9 +115,9 @@
             // btn4
             // 
             this.btn4.Font = new System.Drawing.Font("ＭＳ ゴシック", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.btn4.Location = new System.Drawing.Point(12, 165);
+            this.btn4.Location = new System.Drawing.Point(78, 140);
             this.btn4.Name = "btn4";
-            this.btn4.Size = new System.Drawing.Size(80, 80);
+            this.btn4.Size = new System.Drawing.Size(60, 60);
             this.btn4.TabIndex = 1;
             this.btn4.Text = "4";
             this.btn4.UseVisualStyleBackColor = true;
@@ -117,9 +126,9 @@
             // btn5
             // 
             this.btn5.Font = new System.Drawing.Font("ＭＳ ゴシック", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.btn5.Location = new System.Drawing.Point(98, 165);
+            this.btn5.Location = new System.Drawing.Point(144, 140);
             this.btn5.Name = "btn5";
-            this.btn5.Size = new System.Drawing.Size(80, 80);
+            this.btn5.Size = new System.Drawing.Size(60, 60);
             this.btn5.TabIndex = 1;
             this.btn5.Text = "5";
             this.btn5.UseVisualStyleBackColor = true;
@@ -128,9 +137,9 @@
             // btn6
             // 
             this.btn6.Font = new System.Drawing.Font("ＭＳ ゴシック", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.btn6.Location = new System.Drawing.Point(184, 165);
+            this.btn6.Location = new System.Drawing.Point(210, 140);
             this.btn6.Name = "btn6";
-            this.btn6.Size = new System.Drawing.Size(80, 80);
+            this.btn6.Size = new System.Drawing.Size(60, 60);
             this.btn6.TabIndex = 1;
             this.btn6.Text = "6";
             this.btn6.UseVisualStyleBackColor = true;
@@ -139,9 +148,9 @@
             // btnMult
             // 
             this.btnMult.Font = new System.Drawing.Font("ＭＳ ゴシック", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.btnMult.Location = new System.Drawing.Point(270, 165);
+            this.btnMult.Location = new System.Drawing.Point(276, 140);
             this.btnMult.Name = "btnMult";
-            this.btnMult.Size = new System.Drawing.Size(80, 80);
+            this.btnMult.Size = new System.Drawing.Size(60, 60);
             this.btnMult.TabIndex = 1;
             this.btnMult.Text = "×";
             this.btnMult.UseVisualStyleBackColor = true;
@@ -150,9 +159,9 @@
             // btn1
             // 
             this.btn1.Font = new System.Drawing.Font("ＭＳ ゴシック", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.btn1.Location = new System.Drawing.Point(12, 251);
+            this.btn1.Location = new System.Drawing.Point(78, 206);
             this.btn1.Name = "btn1";
-            this.btn1.Size = new System.Drawing.Size(80, 80);
+            this.btn1.Size = new System.Drawing.Size(60, 60);
             this.btn1.TabIndex = 1;
             this.btn1.Text = "1";
             this.btn1.UseVisualStyleBackColor = true;
@@ -161,9 +170,9 @@
             // btn2
             // 
             this.btn2.Font = new System.Drawing.Font("ＭＳ ゴシック", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.btn2.Location = new System.Drawing.Point(98, 251);
+            this.btn2.Location = new System.Drawing.Point(144, 206);
             this.btn2.Name = "btn2";
-            this.btn2.Size = new System.Drawing.Size(80, 80);
+            this.btn2.Size = new System.Drawing.Size(60, 60);
             this.btn2.TabIndex = 1;
             this.btn2.Text = "2";
             this.btn2.UseVisualStyleBackColor = true;
@@ -172,9 +181,9 @@
             // btn3
             // 
             this.btn3.Font = new System.Drawing.Font("ＭＳ ゴシック", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.btn3.Location = new System.Drawing.Point(184, 251);
+            this.btn3.Location = new System.Drawing.Point(210, 206);
             this.btn3.Name = "btn3";
-            this.btn3.Size = new System.Drawing.Size(80, 80);
+            this.btn3.Size = new System.Drawing.Size(60, 60);
             this.btn3.TabIndex = 1;
             this.btn3.Text = "3";
             this.btn3.UseVisualStyleBackColor = true;
@@ -183,9 +192,9 @@
             // btnSub
             // 
             this.btnSub.Font = new System.Drawing.Font("ＭＳ ゴシック", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.btnSub.Location = new System.Drawing.Point(270, 251);
+            this.btnSub.Location = new System.Drawing.Point(276, 206);
             this.btnSub.Name = "btnSub";
-            this.btnSub.Size = new System.Drawing.Size(80, 80);
+            this.btnSub.Size = new System.Drawing.Size(60, 60);
             this.btnSub.TabIndex = 1;
             this.btnSub.Text = "-";
             this.btnSub.UseVisualStyleBackColor = true;
@@ -194,9 +203,9 @@
             // btn0
             // 
             this.btn0.Font = new System.Drawing.Font("ＭＳ ゴシック", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.btn0.Location = new System.Drawing.Point(12, 337);
+            this.btn0.Location = new System.Drawing.Point(78, 272);
             this.btn0.Name = "btn0";
-            this.btn0.Size = new System.Drawing.Size(80, 80);
+            this.btn0.Size = new System.Drawing.Size(60, 60);
             this.btn0.TabIndex = 1;
             this.btn0.Text = "0";
             this.btn0.UseVisualStyleBackColor = true;
@@ -205,9 +214,9 @@
             // btnClear
             // 
             this.btnClear.Font = new System.Drawing.Font("ＭＳ ゴシック", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.btnClear.Location = new System.Drawing.Point(98, 337);
+            this.btnClear.Location = new System.Drawing.Point(12, 206);
             this.btnClear.Name = "btnClear";
-            this.btnClear.Size = new System.Drawing.Size(80, 80);
+            this.btnClear.Size = new System.Drawing.Size(60, 60);
             this.btnClear.TabIndex = 1;
             this.btnClear.Text = "C";
             this.btnClear.UseVisualStyleBackColor = true;
@@ -216,9 +225,9 @@
             // btnEq
             // 
             this.btnEq.Font = new System.Drawing.Font("ＭＳ ゴシック", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.btnEq.Location = new System.Drawing.Point(184, 337);
+            this.btnEq.Location = new System.Drawing.Point(210, 272);
             this.btnEq.Name = "btnEq";
-            this.btnEq.Size = new System.Drawing.Size(80, 80);
+            this.btnEq.Size = new System.Drawing.Size(60, 60);
             this.btnEq.TabIndex = 1;
             this.btnEq.Text = "=";
             this.btnEq.UseVisualStyleBackColor = true;
@@ -227,19 +236,95 @@
             // btnAdd
             // 
             this.btnAdd.Font = new System.Drawing.Font("ＭＳ ゴシック", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.btnAdd.Location = new System.Drawing.Point(270, 337);
+            this.btnAdd.Location = new System.Drawing.Point(276, 272);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(80, 80);
+            this.btnAdd.Size = new System.Drawing.Size(60, 60);
             this.btnAdd.TabIndex = 1;
             this.btnAdd.Text = "+";
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.btnArithmetic_Click);
             // 
+            // panel1
+            // 
+            this.panel1.Location = new System.Drawing.Point(160, 58);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(20, 10);
+            this.panel1.TabIndex = 2;
+            // 
+            // btnDecimalPoint
+            // 
+            this.btnDecimalPoint.Font = new System.Drawing.Font("ＭＳ ゴシック", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.btnDecimalPoint.Location = new System.Drawing.Point(144, 272);
+            this.btnDecimalPoint.Name = "btnDecimalPoint";
+            this.btnDecimalPoint.Size = new System.Drawing.Size(60, 60);
+            this.btnDecimalPoint.TabIndex = 3;
+            this.btnDecimalPoint.Text = "・";
+            this.btnDecimalPoint.UseVisualStyleBackColor = true;
+            this.btnDecimalPoint.Click += new System.EventHandler(this.btnSymbol_Click);
+            // 
+            // panel2
+            // 
+            this.panel2.Location = new System.Drawing.Point(12, 74);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(60, 60);
+            this.panel2.TabIndex = 3;
+            // 
+            // panel3
+            // 
+            this.panel3.Location = new System.Drawing.Point(12, 140);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(60, 60);
+            this.panel3.TabIndex = 4;
+            // 
+            // panel4
+            // 
+            this.panel4.Location = new System.Drawing.Point(12, 272);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(60, 60);
+            this.panel4.TabIndex = 5;
+            // 
+            // panel5
+            // 
+            this.panel5.Location = new System.Drawing.Point(103, 58);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(20, 10);
+            this.panel5.TabIndex = 3;
+            // 
+            // panel6
+            // 
+            this.panel6.Location = new System.Drawing.Point(35, 58);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(20, 10);
+            this.panel6.TabIndex = 4;
+            // 
+            // panel7
+            // 
+            this.panel7.Location = new System.Drawing.Point(229, 58);
+            this.panel7.Name = "panel7";
+            this.panel7.Size = new System.Drawing.Size(20, 10);
+            this.panel7.TabIndex = 5;
+            // 
+            // panel8
+            // 
+            this.panel8.Location = new System.Drawing.Point(296, 58);
+            this.panel8.Name = "panel8";
+            this.panel8.Size = new System.Drawing.Size(20, 10);
+            this.panel8.TabIndex = 6;
+            // 
             // FrmCalc
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(367, 434);
+            this.ClientSize = new System.Drawing.Size(351, 345);
+            this.Controls.Add(this.panel8);
+            this.Controls.Add(this.panel7);
+            this.Controls.Add(this.panel6);
+            this.Controls.Add(this.panel5);
+            this.Controls.Add(this.panel4);
+            this.Controls.Add(this.panel3);
+            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.btnDecimalPoint);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.btnEq);
             this.Controls.Add(this.btnSub);
@@ -287,6 +372,15 @@
         private System.Windows.Forms.Button btnClear;
         private System.Windows.Forms.Button btnEq;
         private System.Windows.Forms.Button btnAdd;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button btnDecimalPoint;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.Panel panel6;
+        private System.Windows.Forms.Panel panel7;
+        private System.Windows.Forms.Panel panel8;
     }
 }
 

@@ -51,6 +51,28 @@ namespace Calc
         }
 
         /// <summary>
+        /// 記号が押された時
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnSymbol_Click(object sender, EventArgs e)
+        {
+            // senderの詳しい情報を取り扱えるようにする
+            var btn = (Button)sender;
+
+            switch (btn.Text)
+            {
+                case "・":
+                    // [入力された数字]に連結する
+                    _input_str += ".";
+
+                    // 画面上に数字を出す
+                    txtResult.Text = _input_str;
+                    break;
+            }
+        }
+
+        /// <summary>
         /// 四則演算子が押された時
         /// </summary>
         /// <param name="sender"></param>
