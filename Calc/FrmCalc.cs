@@ -86,7 +86,7 @@ namespace Calc
         {
             // 四則計算
             if (!string.IsNullOrEmpty(_input_str) && _arithmetic != Arithmetic.None)
-                _result = Calcurate(_result, decimal.Parse(_input_str));
+                Calcurate(_result, decimal.Parse(_input_str));
             else
                 _result = decimal.Parse(DeleteString(txtResult.Text, ","));
 
@@ -145,7 +145,7 @@ namespace Calc
             }
 
             // 四則計算
-            _result = Calcurate(num1, num2);
+            Calcurate(num1, num2);
 
             // 画面に計算結果を表示する
             txtResult.Text = ConvertToStringSeparatedByThreeDigits(_result);
@@ -181,7 +181,7 @@ namespace Calc
         /// <param name="num1">数値1</param>
         /// <param name="num2">数値2</param>
         /// <returns>計算結果</returns>
-        private decimal Calcurate(decimal num1, decimal num2)
+        private void Calcurate(decimal num1, decimal num2)
         {
             switch (_arithmetic)
             {
@@ -202,8 +202,6 @@ namespace Calc
                     _result = num2;
                     break;
             }
-
-            return _result;
         }
 
         /// <summary>
@@ -211,7 +209,6 @@ namespace Calc
         /// </summary>
         /// <param name="text">四則演算子ボタンのText値</param>
         /// <returns>四則演算子</returns>
-        //private Arithmetic GetArithmetic(string text)
         private void GetArithmetic(string text)
         {
             switch (text)
