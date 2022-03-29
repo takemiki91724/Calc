@@ -96,6 +96,8 @@ namespace Calc
             // 演算子をarithmetic変数に入れる
             var btn = (Button)sender;
             _arithmetic = GetArithmetic(btn.Text);
+
+            _IsFirstInput = true;
         }
 
         /// <summary>
