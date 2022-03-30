@@ -33,6 +33,7 @@ namespace Calc
         string _lastNum;    // 直前に入力された数字
         decimal _result;    // 計算結果
         bool _IsFirstInput; // 初回入力フラグ
+        bool _overDigits;   // 桁数オーバー
 
         public FrmCalc()
         {
@@ -47,17 +48,26 @@ namespace Calc
         /// <param name="e"></param>
         private void btnNum_Click(object sender, EventArgs e)
         {
-            // senderの詳しい情報を取り扱えるようにする
-            var btn = (Button)sender;
+            if (!_overDigits)
+            {
+                // senderの詳しい情報を取り扱えるようにする
+                var btn = (Button)sender;
 
-            // 押されたボタンの数字(または小数点の記号)
-            var btnNumText = btn.Text;
+                // 押されたボタンの数字(または小数点の記号)
+                var btnNumText = btn.Text;
 
-            // [入力された数字]に連結する
-            _input_str += btnNumText;
+                // [入力された数字]に連結する
+                _input_str += btnNumText;
 
-            // 画面上に数字を出す
-            txtResult.Text = ConvertToStringSeparatedByThreeDigits(decimal.Parse(_input_str));
+                // 画面上に数字を出す
+                var input_str = ConvertToStringSeparatedByThreeDigits(decimal.Parse(_input_str));
+                if (input_str.Length > 18)
+                {
+                    input_str = "E";
+                    _overDigits = true;
+                }
+                txtResult.Text = input_str;
+            }
         }
 
         /// <summary>
@@ -67,14 +77,17 @@ namespace Calc
         /// <param name="e"></param>
         private void btnSymbol_Click(object sender, EventArgs e)
         {
-            // senderの詳しい情報を取り扱えるようにする
-            var btn = (Button)sender;
+            if (!_overDigits)
+            {
+                // senderの詳しい情報を取り扱えるようにする
+                var btn = (Button)sender;
 
-            // 記号の種類を取得する
-            GetSymbol(btn.Text);
+                // 記号の種類を取得する
+                GetSymbol(btn.Text);
 
-            // 記号に対応する処理を行う
-            HandleSymbols();
+                // 記号に対応する処理を行う
+                HandleSymbols();
+            }
         }
 
         /// <summary>
@@ -84,25 +97,28 @@ namespace Calc
         /// <param name="e"></param>
         private void btnArithmetic_Click(object sender, EventArgs e)
         {
-            // 四則計算
-            if (!string.IsNullOrEmpty(_input_str) && _arithmetic != Arithmetic.None)
-                Calcurate(_result, decimal.Parse(_input_str));
-            else
-                _result = decimal.Parse(DeleteString(txtResult.Text, ","));
+            if (!_overDigits)
+            {
+                // 四則計算
+                if (!string.IsNullOrEmpty(_input_str) && _arithmetic != Arithmetic.None)
+                    Calcurate(_result, decimal.Parse(_input_str));
+                else
+                    _result = decimal.Parse(DeleteString(txtResult.Text, ","));
 
-            // 画面に計算結果を表示する
-            txtResult.Text = ConvertToStringSeparatedByThreeDigits(_result);
+                // 画面に計算結果を表示する
+                txtResult.Text = ConvertToStringSeparatedByThreeDigits(_result);
 
-            _lastNum = string.IsNullOrEmpty(_input_str) ? _result.ToString() : _input_str; 
+                _lastNum = string.IsNullOrEmpty(_input_str) ? _result.ToString() : _input_str;
 
-            // 今入力されている数字をリセットする
-            _input_str = "";
+                // 今入力されている数字をリセットする
+                _input_str = "";
 
-            // 演算子をarithmetic変数に入れる
-            var btn = (Button)sender;
-            GetArithmetic(btn.Text);
+                // 演算子をarithmetic変数に入れる
+                var btn = (Button)sender;
+                GetArithmetic(btn.Text);
 
-            _IsFirstInput = true;
+                _IsFirstInput = true;
+            }
         }
 
         /// <summary>
@@ -112,46 +128,55 @@ namespace Calc
         /// <param name="e"></param>
         private void btnEq_Click(object sender, EventArgs e)
         {
-            var num1 = _result; // 現在の結果
-            decimal num2;
-
-            // 入力された数字が空欄でないなら[入力された数字]、空欄なら[直前に入力された数字]を取得する
-            if (!string.IsNullOrEmpty(_input_str))
-                num2 = decimal.Parse(_input_str);
-            else
-                num2 = decimal.Parse(_lastNum);
-
-            if (string.IsNullOrEmpty(_input_str))
+            if (!_overDigits)
             {
-                switch (_arithmetic)
+                var num1 = _result; // 現在の結果
+                decimal num2;
+
+                // 入力された数字が空欄でないなら[入力された数字]、空欄なら[直前に入力された数字]を取得する
+                if (!string.IsNullOrEmpty(_input_str))
+                    num2 = decimal.Parse(_input_str);
+                else
+                    num2 = decimal.Parse(_lastNum);
+
+                if (string.IsNullOrEmpty(_input_str))
                 {
-                    case Arithmetic.Div:
-                        // [/=]とクリックした場合、num1に[1]を代入する
-                        if (_IsFirstInput) num1 = 1;
-                        break;
-                    case Arithmetic.Sub:
-                        // [-=]とクリックした場合、表示されている数字の２倍を代入する
-                        var numString = DeleteString(txtResult.Text, ",");
-                        if (_IsFirstInput)
-                            num2 = decimal.Parse(numString) * 2;
-                        break;
-                    default:
-                        _IsFirstInput = true;
-                        break;
+                    switch (_arithmetic)
+                    {
+                        case Arithmetic.Div:
+                            // [/=]とクリックした場合、num1に[1]を代入する
+                            if (_IsFirstInput) num1 = 1;
+                            break;
+                        case Arithmetic.Sub:
+                            // [-=]とクリックした場合、表示されている数字の２倍を代入する
+                            var numString = DeleteString(txtResult.Text, ",");
+                            if (_IsFirstInput)
+                                num2 = decimal.Parse(numString) * 2;
+                            break;
+                        default:
+                            _IsFirstInput = true;
+                            break;
+                    }
+
+                    if (_arithmetic == Arithmetic.Div || _arithmetic == Arithmetic.Sub)
+                        _IsFirstInput = false;
                 }
 
-                if (_arithmetic == Arithmetic.Div || _arithmetic == Arithmetic.Sub)
-                    _IsFirstInput = false;
+                // 四則計算
+                Calcurate(num1, num2);
+
+                // 画面に計算結果を表示する
+                var input_str = ConvertToStringSeparatedByThreeDigits(_result);
+                if (input_str.Length > 18)
+                {
+                    input_str = "E";
+                    _overDigits = true;
+                }
+                txtResult.Text = input_str;
+
+                // 今入力されている数字をリセットする
+                _input_str = "";
             }
-
-            // 四則計算
-            Calcurate(num1, num2);
-
-            // 画面に計算結果を表示する
-            txtResult.Text = ConvertToStringSeparatedByThreeDigits(_result);
-
-            // 今入力されている数字をリセットする
-            _input_str = "";
         }
 
         /// <summary>
@@ -172,6 +197,7 @@ namespace Calc
             _arithmetic = Arithmetic.None;  // 押された演算子
             _symbol = Symbol.None;          // 押された記号
             _IsFirstInput = true;           // 初回入力フラグ
+            _overDigits = false;            // 桁数オーバー
             txtResult.Text = "0";
         }
 
@@ -264,7 +290,7 @@ namespace Calc
             _input_str += ".";
 
             // 画面上に数字を出す
-            txtResult.Text = ConvertToStringSeparatedByThreeDigits(decimal.Parse(_input_str)); ;
+            txtResult.Text = ConvertToStringSeparatedByThreeDigits(decimal.Parse(_input_str));
         }
 
         /// <summary>
