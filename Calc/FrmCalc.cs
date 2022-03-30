@@ -99,9 +99,18 @@ namespace Calc
         {
             if (!_overDigits)
             {
-                // 四則計算
                 if (!string.IsNullOrEmpty(_input_str) && _arithmetic != Arithmetic.None)
-                    Calcurate(_result, decimal.Parse(_input_str));
+                    // 四則計算
+                    try
+                    {
+                        Calcurate(_result, decimal.Parse(_input_str));
+                    }
+                    catch
+                    {
+                        txtResult.Text = "E";
+                        _overDigits = true;
+                        return;
+                    }
                 else
                     _result = decimal.Parse(DeleteString(txtResult.Text, ","));
 
@@ -162,8 +171,17 @@ namespace Calc
                         _IsFirstInput = false;
                 }
 
-                // 四則計算
-                Calcurate(num1, num2);
+                try
+                {
+                    // 四則計算
+                    Calcurate(num1, num2);
+                }
+                catch
+                {
+                    txtResult.Text = "E";
+                    _overDigits = true;
+                    return;
+                }
 
                 // 画面に計算結果を表示する
                 var input_str = ConvertToStringSeparatedByThreeDigits(_result);
