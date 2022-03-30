@@ -287,7 +287,11 @@ namespace Calc
         private void HandleDecimalPoint()
         {
             // [入力された数字]に連結する
-            _input_str += ".";
+            if (_input_str.IndexOf(".") < 0)
+                _input_str += ".";
+
+            if (_input_str == ".")
+                _input_str = "0" + _input_str;
 
             // 画面上に数字を出す
             txtResult.Text = ConvertToStringSeparatedByThreeDigits(decimal.Parse(_input_str));
